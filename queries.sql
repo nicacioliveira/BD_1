@@ -125,17 +125,14 @@ WHERE area = (SELECT MIN(area) FROM acude)
 
 /*15. Faça um trigger que não permita a inserção de um açude com volume máximo menor que 100.*/
 /*OK*/
-CREATE OR REPLACE TRIGGER acude_volume_maximo
-BEFORE INSERT OR UPDATE
+CREATE OR REPLACE TRIGGER trVolumeMax
+BEFORE INSERT OR UPDATE 
 ON acude
 REFERENCING NEW AS NEW OLD AS OLD
 FOR EACH ROW
-DECLARE
-   VARIABLE volumeLimite := 100
 BEGIN
-   IF (:NEW.volumeMaximo < volumeLimite )
-   THEN
-      raise_application_error(-20001,'Valor invalido. Volume mínimo limite: ' || volumeLimite);
-   END IF;
+IF :NEW.volumeMaximo < 100 THEN
+raise_application_error(-20001,'Valor invalido.');
+END IF;
 END;
 
