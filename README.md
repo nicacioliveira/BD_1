@@ -8,7 +8,7 @@ Projeto da disciplina de Banco de Dados 1 da Universidade Federal de Campina Gra
     - Script contendo queries comentadas
 
 
-### Integrandes
+### Integrantes
 >[Antunes Dantas da Silva](https://github.com/antunesdantass),
 [Nicácio Oliveira de Sousa](https://github.com/nicacioliveira),
 [Ivyna Rayany Santino](https://github.com/IvynaSantino),
