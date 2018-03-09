@@ -68,7 +68,7 @@ ORDER BY R.nome;
 
 /*08. Liste a quantidade de medições pluviométricas feitas por posto pluviométrico.*/
 /*OK*/
-SELECT nome as Posto_luviometrico, COUNT(*) as QTD_Medicoes FROM posto_pluviometrico p
+SELECT nome as Posto_pluviometrico, COUNT(*) as QTD_Medicoes FROM posto_pluviometrico p
 INNER JOIN medicao_pluviometrica m ON p.idpostopluviometrico=m.idpostopluviometrico
 GROUP BY nome;
 
