@@ -31,6 +31,8 @@ END data_medcotadiaria_limit;
 INSERT INTO medicao_cota_diaria(COTAATUAL, DATA, IDACUDE, MATRICULA)
 VALUES (0.8045, TO_DATE('2018/03/10 06:06:06', 'yyyy/mm/dd hh24:mi:ss'), (SELECT idacude FROM ACUDE WHERE nome='Epitácio Pessoa'), (SELECT matricula FROM usuario WHERE nome='Antunes' ));
 
+SELECT * FROM medicao_cota_diaria WHERE matricula = (SELECT u.matricula FROM usuario u WHERE u.nome = 'Antunes');
+
 /*04. Liste o nome dos 5 usuários que cadastraram mais medições, seja ela pluviométrica ou de cota diária.*/
 /*OK*/
 SELECT nome FROM

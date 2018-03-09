@@ -153,13 +153,13 @@ VALUES ('Posto 1 do RN', 'Michel Temer', 13, 'Catolé', 'Natal', 'Rio Grande do 
 INSERT INTO POSTO_PLUVIOMETRICO (NOME, RUA, NUM, BAIRRO, MUNICIPIO, ESTADO, IDBACIA)
 VALUES ('Posto 3 do RN', 'João Amaro', 21, 'Universitário', 'Caicó', 'Rio Grande do Norte', (SELECT idbacia FROM bacia WHERE nome='Apodi-Mossoró'));
 INSERT INTO POSTO_PLUVIOMETRICO (NOME, RUA, NUM, BAIRRO, MUNICIPIO, ESTADO, IDBACIA)
-VALUES ('Posto 2 do RN', 'Rua do Paralelepípedo', 42, 'Centro', 'Apodi', 'Rio Grande do Norte', (SELECT idbacia FROM bacia WHERE nome='Atlântico Leste'));
+VALUES ('Posto 2 do RN', 'Rua do Paralelepípedo', 42, 'Centro', 'Apodi', 'Rio Grande do Norte', (SELECT idbacia FROM bacia WHERE nome='Piranhas-Açu'));
 INSERT INTO POSTO_PLUVIOMETRICO (NOME, RUA, NUM, BAIRRO, MUNICIPIO, ESTADO, IDBACIA)
 VALUES ('Posto 4 do RN', 'Rua Asfaltada', 24, 'Zepa', 'Natal', 'Rio Grande do Norte', (SELECT idbacia FROM bacia WHERE nome='Apodi-Mossoró'));
 INSERT INTO POSTO_PLUVIOMETRICO (NOME, RUA, NUM, BAIRRO, MUNICIPIO, ESTADO, IDBACIA)
-VALUES ('Posto 5 do RN', 'Marques de Evaldo', 2, 'Projetado', 'Caicó', 'Rio Grande do Norte', (SELECT idbacia FROM bacia WHERE nome='Atlântico Sudeste'));
+VALUES ('Posto 5 do RN', 'Marques de Evaldo', 2, 'Projetado', 'Caicó', 'Rio Grande do Norte', (SELECT idbacia FROM bacia WHERE nome='Apodi-Mossoró'));
 INSERT INTO POSTO_PLUVIOMETRICO (NOME, RUA, NUM, BAIRRO, MUNICIPIO, ESTADO, IDBACIA)
-VALUES ('Posto 6 do RN', 'Rua do Paralelepípedo', 42, 'Palmeira', 'Natal', 'Rio Grande do Norte', (SELECT idbacia FROM bacia WHERE nome='Tocantins-Araguaia'));
+VALUES ('Posto 6 do RN', 'Rua do Paralelepípedo', 42, 'Palmeira', 'Natal', 'Rio Grande do Norte', (SELECT idbacia FROM bacia WHERE nome='Beberibe'));
 INSERT INTO POSTO_PLUVIOMETRICO (NOME, RUA, NUM, BAIRRO, MUNICIPIO, ESTADO, IDBACIA)
 VALUES ('BB8', 'Assis Pereira', 1002, 'Centro', 'Bonito de Santa Fé', 'Paraíba', (SELECT idbacia FROM bacia WHERE nome='Piranhas-Açu'));
 
