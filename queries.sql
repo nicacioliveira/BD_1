@@ -1,9 +1,9 @@
 /*Grupo 6: Antunes Dantas da Silva, Nicácio Oliveira de Sousa, Ivyna Rayany Santino, José Glauber Braz, Thalyta Fabrine e Valter Vinicius de Lucena.*/
 
-Grupo 6
+/*Grupo 6*/
 /*01. Liste o nome dos rios, ordenados pelo indicativo e pelo nome de forma decrescente.*/
 /*OK*/
-SELECT nome, indicativo FROM rio ORDER BY indicativo DESC, nome DESC
+SELECT nome, indicativo FROM rio ORDER BY indicativo DESC, nome DESC;
 
 /*02. Crie uma visão que liste o nome dos açudes e seus os valores de oxigênio para todos os açudes do Rio Grande do Norte.*/
 /*OK*/
@@ -11,7 +11,7 @@ CREATE OR REPLACE VIEW oxi_acudes_rn
 AS
 SELECT DISTINCT A.nome as NomeAcude, E.oxigenio
         FROM acude A, estacao_de_qualidade E, posto_pluviometrico P, rio R
-        WHERE E.idAcude = A.idAcude and E.idRio = A.idRio and P.idBacia = R.idBacia and R.idRio = A.idRio and P.estado = 'Rio Grande do Norte'
+        WHERE E.idAcude = A.idAcude and E.idRio = A.idRio and P.idBacia = R.idBacia and R.idRio = A.idRio and P.estado = 'Rio Grande do Norte';
 
 /*03. Faça um trigger que, ao tentar inserir uma medição de qualidade de açude com uma data posterior ao dia atual, seja feita a inserção usando a data atual.*/
 /*OK*/
@@ -24,7 +24,12 @@ BEGIN
    THEN
        SELECT sysdate INTO :NEW.data FROM DUAL;
    END IF;
-END;
+END data_medcotadiaria_limit;
+
+/
+
+INSERT INTO medicao_cota_diaria(COTAATUAL, DATA, IDACUDE, MATRICULA)
+VALUES (0.8045, TO_DATE('2018/03/10 06:06:06', 'yyyy/mm/dd hh24:mi:ss'), (SELECT idacude FROM ACUDE WHERE nome='Epitácio Pessoa'), (SELECT matricula FROM usuario WHERE nome='Antunes' ));
 
 /*04. Liste o nome dos 5 usuários que cadastraram mais medições, seja ela pluviométrica ou de cota diária.*/
 /*OK*/
@@ -42,7 +47,7 @@ SELECT p.nome as Posto_Pluviométrico, b.nome as Bacia
 FROM posto_pluviometrico p, bacia b
 WHERE p.idbacia = b.idbacia
 GROUP BY p.nome, b.nome
-ORDER BY b.nome
+ORDER BY b.nome;
 
 /*06. Liste os valores dos volumes para cada Cota Área Volume do açude de Bodocongó, ordenados de forma crescente.*/
 /*OK*/
@@ -57,13 +62,13 @@ SELECT E.nome as estacao, R.nome as rio
 FROM estacao_de_qualidade E, rio R
 WHERE E.idRio = R.idRio
 GROUP BY R.nome, E.nome
-ORDER BY R.nome
+ORDER BY R.nome;
 
 /*08. Liste a quantidade de medições pluviométricas feitas por posto pluviométrico.*/
 /*OK*/
 SELECT nome as Posto_luviometrico, COUNT(*) as QTD_Medicoes FROM posto_pluviometrico p
 INNER JOIN medicao_pluviometrica m ON p.idpostopluviometrico=m.idpostopluviometrico
-GROUP BY nome
+GROUP BY nome;
 
 /*09. Qual foi o valor total de chuvas para cada açude no mês de Janeiro/2018?*/
 /*OK*/
@@ -75,7 +80,7 @@ SELECT (VALOR_CHUVA_DIA_1 + VALOR_CHUVA_DIA_2 + VALOR_CHUVA_DIA_3 + VALOR_CHUVA_
         VALOR_CHUVA_DIA_26 + VALOR_CHUVA_DIA_27 + VALOR_CHUVA_DIA_28 + VALOR_CHUVA_DIA_29 + VALOR_CHUVA_DIA_30 +
         VALOR_CHUVA_DIA_31) AS total_chuvas, mp.DATA AS data_medicao, a.nome as acude
 FROM ACUDE a, POSTO_PLUVIOMETRICO pp, RIO r, MEDICAO_PLUVIOMETRICA mp
-WHERE mp.idpostopluviometrico = pp.idpostopluviometrico and pp.idbacia = r.idbacia and r.idrio = a.idrio and (EXTRACT(MONTH FROM DATA)) = 01
+WHERE mp.idpostopluviometrico = pp.idpostopluviometrico and pp.idbacia = r.idbacia and r.idrio = a.idrio and (EXTRACT(MONTH FROM DATA)) = 01;
 
 /*10. Liste os valores de oxigênio medidos para o açude de Bodocongó entre os dias 15/12/2017 e 17/01/2018./*
 /*OK*/
@@ -102,7 +107,7 @@ WHERE rownum = 1);
 /*OK*/
 SELECT CAST(avg(eq.ph) AS NUMBER(6,2)) AS PH_BEBERIBE
 FROM estacao_de_qualidade eq
-WHERE eq.nome = 'Beberibe' AND TO_CHAR(data, 'YYYY')='2017'
+WHERE eq.nome = 'Beberibe' AND TO_CHAR(data, 'YYYY')='2017';
 
 
 /*13. Crie uma visão que liste os valores de chuva diários para a bacia do Alto Paraíba e o nome da bacia.*/
@@ -115,13 +120,13 @@ AS SELECT b.nome as Bacia, VALOR_CHUVA_DIA_1, VALOR_CHUVA_DIA_2, VALOR_CHUVA_DIA
         VALOR_CHUVA_DIA_24, VALOR_CHUVA_DIA_25, VALOR_CHUVA_DIA_26, VALOR_CHUVA_DIA_27, VALOR_CHUVA_DIA_28, VALOR_CHUVA_DIA_29,
         VALOR_CHUVA_DIA_30, VALOR_CHUVA_DIA_31
 FROM BACIA b, MEDICAO_PLUVIOMETRICA mp, POSTO_PLUVIOMETRICO pp
-WHERE mp.idpostopluviometrico = pp.idpostopluviometrico and pp.idbacia = b.idbacia and b.nome = 'Alto Paraíba'
+WHERE mp.idpostopluviometrico = pp.idpostopluviometrico and pp.idbacia = b.idbacia and b.nome = 'Alto Paraíba';
 
 /*14. Qual o açude com a menor área? */
 /*OK*/
 SELECT nome, area
 FROM acude
-WHERE area = (SELECT MIN(area) FROM acude)
+WHERE area = (SELECT MIN(area) FROM acude);
 
 /*15. Faça um trigger que não permita a inserção de um açude com volume máximo menor que 100.*/
 /*OK*/
@@ -134,5 +139,9 @@ BEGIN
 IF :NEW.volumeMaximo < 100 THEN
 raise_application_error(-20001,'Valor invalido.');
 END IF;
-END;
+END trVolumeMax;
+
+/
+
+INSERT INTO ACUDE (NOME, VOLUMEMAXIMO, COMPRIMENTO, AREA, IDRIO) VALUES ('Laguinho UFCG', 99, 250.0, 481.5, (SELECT idrio FROM RIO WHERE nome='Paraíba'));
 
